@@ -9,8 +9,8 @@ int FastMod(const int input, const int ceil);
 // see README.md.
 int RegretIndex(int c1, int c2, bool is_small_blind, bool is_fold);
 
-bool OpenRegretTree(int* regret_tree, char* file_name);
-void SaveRegretTree(int* regret_tree, char* file_name);
+bool OpenRegretTree(int* regret_tree, const char* file_name);
+void SaveRegretTree(const int* regret_tree, const char* file_name);
 
 const int kNodes = 676;
 
@@ -27,7 +27,7 @@ int main() {
 	int c2 = 33;
 
 	std::cout << RegretIndex(c1, c2, false, true) << std::endl;
-
+	
 	while (1) {
 
 	}
@@ -84,7 +84,7 @@ int FastMod(const int input, const int ceil) {
 	// NB: the assumption here is that the numbers are positive.
 }
 
-bool OpenRegretTree(int* regret_tree, char* file_name) {
+bool OpenRegretTree(int* regret_tree, const char* file_name) {
 	FILE* fin = fopen("regret_tree.dat", "rb");
 	if (!fin) {
 		return false;
@@ -97,7 +97,7 @@ bool OpenRegretTree(int* regret_tree, char* file_name) {
 	return true;
 }
 
-void SaveRegretTree(int* regret_tree, char* file_name) {
+void SaveRegretTree(const int* regret_tree, const char* file_name) {
 	std::ofstream o(file_name, std::ios::binary);
 
 	char bytes[4];
