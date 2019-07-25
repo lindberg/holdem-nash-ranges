@@ -1,39 +1,7 @@
 #include <iostream>
 #include <fstream>
 
-// FastMod from https://stackoverflow.com/a/33333636/1619888
-int FastMod(const int input, const int ceil);
-
-// Returns the index of regret_tree where the node we are searching for is.
-// c1 and c2 are the cards represented by integers 1-52. For more information,
-// see README.md.
-int RegretIndex(int c1, int c2, bool is_small_blind, bool is_fold);
-
-bool OpenRegretTree(int* regret_tree, const char* file_name);
-void SaveRegretTree(const int* regret_tree, const char* file_name);
-
-const int kNodes = 676;
-
-int main() {
-	int regret_tree[kNodes];
-
-	memset(regret_tree, 0, sizeof(regret_tree));
-
-	if (!OpenRegretTree(regret_tree, "regret_tree.dat")) {
-		SaveRegretTree(regret_tree, "regret_tree.dat");
-	}
-
-	int c1 = 13;
-	int c2 = 33;
-
-	std::cout << RegretIndex(c1, c2, false, true) << std::endl;
-	
-	while (1) {
-
-	}
-
-	return 0;
-}
+#include "regret_tree.h"
 
 int RegretIndex(int c1, int c2, bool is_small_blind, bool is_fold) {
 	int c1_suit = FastMod(c1, 4);
