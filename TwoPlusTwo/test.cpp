@@ -1,9 +1,4 @@
 #include <iostream>
-#include <fstream>
-#include <chrono>
-#include <cstdlib>
-#include <string>
-
 using namespace std;
 
 #define DWORD int32_t
@@ -50,10 +45,6 @@ void EnumerateAll7CardHands()
 
 	// On your mark, get set, go...
 	//DWORD dwTime = GetTickCount();
-	auto begin = chrono::high_resolution_clock::now();
-
-	int hand[7];
-	int deck[52];
 
 	for (c0 = 1; c0 < 47; c0++) {
 		u0 = HR[53+c0];
@@ -68,19 +59,6 @@ void EnumerateAll7CardHands()
 						for (c5 = c4+1; c5 < 52; c5++) {
 							u5 = HR[u4+c5];
  							for (c6 = c5+1; c6 < 53; c6++) {
-
-								for (int j = 0; j < 52; j++) {
-									for (int i = 1; i <= 52; i++) {
-										deck[i - 1] = i;
-									}
-
-									hand[0] = deck[j];
-									deck[j] = deck[51];
-									hand[1] = deck[rand() % 51];
-									//hand[2] = 
-								}
-
-
 
 								handTypeSum[HR[u5+c6] >> 12]++;
 
@@ -99,9 +77,6 @@ void EnumerateAll7CardHands()
 	}
 
 	//dwTime = GetTickCount() - dwTime;
-	auto end = chrono::high_resolution_clock::now();
-	auto dur = end - begin;
-	auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(dur).count();
 
 	printf("BAD:              %d\n", handTypeSum[0]);
 	printf("High Card:        %d\n", handTypeSum[1]);
@@ -125,14 +100,13 @@ void EnumerateAll7CardHands()
 	}
 
 	printf("\nEnumerated %d hands.\n", count);
-	cout << "Time elapsed: " << ms << " ms" << endl;
 }
 
 
 int main(int argc, char* argv[]) {
 
-	//printf("Testing the Two Plus Two 7-Card Evaluator\n");
-	//printf("-----------------------------------------\n\n");
+	printf("Testing the Two Plus Two 7-Card Evaluator\n");
+	printf("-----------------------------------------\n\n");
 
 	// Load the HandRanks.DAT file and map it into the HR array
 	printf("Loading HandRanks.DAT file...");
@@ -145,46 +119,8 @@ int main(int argc, char* argv[]) {
 	printf("complete.\n\n");
 
 	// Enumerate all 133,784,560 possible 7-card poker hands...
-	//EnumerateAll7CardHands();
-	//LookupSingleHands();
-
-	{
-		int cards[7] = { 17, 18, 19, 20, 21, 22, 23 };
-		int retVal = LookupHand(cards);
-		printf("Category: %d\n", retVal >> 12);
-		printf("Salt: %d\n", retVal & 0x00000FFF);
-		cout << retVal << endl;
-	}
-
-	{
-		int cards[7] = { 17, 18, 19, 20, 21, 22, 23 };
-		int retVal = LookupHand(cards);
-		printf("Category: %d\n", retVal >> 12);
-		printf("Salt: %d\n", retVal & 0x00000FFF);
-		cout << retVal << endl;
-	}
-
-	int cards3[] = { 1, 2, 3, 4, 5, 6, 9 };
-	int retVal3 = LookupHand(cards3);
-	printf("Category: %d\n", retVal3 >> 12);
-	printf("Salt: %d\n", retVal3 & 0x00000FFF);
-	cout << retVal3 << endl;
-
-	int cards2[] = { 1, 2, 3, 4, 5, 6, 7 };
-	int retVal2 = LookupHand(cards2);
-	printf("Category: %d\n", retVal2 >> 12);
-	printf("Salt: %d\n", retVal2 & 0x00000FFF);
-	cout << retVal2 << endl;
-	cout << endl;
-
-	int abc = 2000000000;
-	const char* filename = "test.txt";
-	ofstream o(filename, ios::binary);
-	o.write((char*)& abc, 4);
-	o.close();
-
-	while (1) {}
+	EnumerateAll7CardHands();
+	LookupSingleHands();
 
 	return 0;
 }
-
