@@ -4,7 +4,7 @@
 using namespace std;
 
 int main() {
-	const char* filename = "regrets.dat";
+	const char* filename = "regret_tree.dat";
 	ofstream o(filename, ios::binary);
 
 	int abc = 0;
