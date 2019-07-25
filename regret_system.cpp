@@ -1,21 +1,36 @@
 #include <iostream>
+#include <fstream>
 
-using namespace std;
-
-//FastMod from https://stackoverflow.com/a/33333636/1619888
+// FastMod from https://stackoverflow.com/a/33333636/1619888
 int FastMod(const int input, const int ceil);
 
-// Returns the index of regret_table where the node we are searching for is.
+// Returns the index of regret_tree where the node we are searching for is.
 // c1 and c2 are the cards represented by integers 1-52. For more information,
 // see README.md.
 int RegretIndex(int c1, int c2, bool is_small_blind, bool is_fold);
 
+bool OpenRegretTree(int* regret_tree, char* file_name);
+void SaveRegretTree(int* regret_tree, char* file_name);
+
+const int kNodes = 676;
+
 int main() {
-	// Example hand T9s from README.md
+	int regret_tree[kNodes];
+
+	memset(regret_tree, 0, sizeof(regret_tree));
+
+	if (!OpenRegretTree(regret_tree, "regret_tree.dat")) {
+		SaveRegretTree(regret_tree, "regret_tree.dat");
+	}
+
 	int c1 = 13;
 	int c2 = 33;
 
-	cout << RegretIndex(c1, c2, false, true) << endl;
+	std::cout << RegretIndex(c1, c2, false, true) << std::endl;
+
+	while (1) {
+
+	}
 
 	return 0;
 }
@@ -63,8 +78,37 @@ int RegretIndex(int c1, int c2, bool is_small_blind, bool is_fold) {
 }
 
 int FastMod(const int input, const int ceil) {
-	// apply the modulo operator only when needed
-	// (i.e. when the input is greater than the ceiling)
+	// Apply the modulo operator only when needed
+	// (i.e. when the input is greater than the ceiling).
 	return input >= ceil ? input % ceil : input;
-	// NB: the assumption here is that the numbers are positive
+	// NB: the assumption here is that the numbers are positive.
+}
+
+bool OpenRegretTree(int* regret_tree, char* file_name) {
+	FILE* fin = fopen("regret_tree.dat", "rb");
+	if (!fin) {
+		return false;
+	}
+
+	fread(regret_tree, sizeof(regret_tree), 1, fin);
+
+	fclose(fin);
+
+	return true;
+}
+
+void SaveRegretTree(int* regret_tree, char* file_name) {
+	std::ofstream o(file_name, std::ios::binary);
+
+	char bytes[4];
+
+	for (int i = 0; i < kNodes; i++) {
+		bytes[0] = (regret_tree[i] >> 24) & 0xFF;
+		bytes[1] = (regret_tree[i] >> 16) & 0xFF;
+		bytes[2] = (regret_tree[i] >> 8) & 0xFF;
+		bytes[3] = regret_tree[i] & 0xFF;
+		o.write(bytes, 4);
+	}
+
+	o.close();
 }
