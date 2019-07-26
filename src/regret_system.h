@@ -14,5 +14,5 @@ public:
 	void RunIterations(int iterations);
 	// Returns hand strength. pCards should be a pointer to an array
 	// of 7 integers each with value between 1 and 52 inclusive.
-	int LookupHand(int* pCards);
+	int LookupHand(int* cards);
 };
