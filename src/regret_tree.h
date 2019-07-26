@@ -16,6 +16,3 @@ public:
 	bool OpenRegretTree(const char* file_name);
 	void SaveRegretTree(const char* file_name);
 };
-
-// FastMod from https://stackoverflow.com/a/33333636/1619888
-int FastMod(const int input, const int ceil);

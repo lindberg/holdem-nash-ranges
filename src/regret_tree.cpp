@@ -2,6 +2,7 @@
 #include <fstream>
 
 #include "regret_tree.h"
+#include "helper_functions.h"
 
 RegretTree::RegretTree() {
 	memset(regret_tree, 0, sizeof(regret_tree));
@@ -47,13 +48,6 @@ int RegretTree::RegretIndex(int c1, int c2, bool is_small_blind, bool is_fold) {
 	if (is_fold) index += 4;
 
 	return index;
-}
-
-int FastMod(const int input, const int ceil) {
-	// Apply the modulo operator only when needed
-	// (i.e. when the input is greater than the ceiling).
-	return input >= ceil ? input % ceil : input;
-	// NB: the assumption here is that the numbers are positive.
 }
 
 bool RegretTree::OpenRegretTree(const char* file_name) {
