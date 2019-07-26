@@ -95,13 +95,13 @@ void RegretSystem::RunIterations(int iterations) {
 	regret_tree_.SaveRegretTree("regret_tree.dat");
 }
 
-int RegretSystem::LookupHand(int* pCards)
+int RegretSystem::LookupHand(int* cards)
 {
-	long long p = HR[(long long)53 + *pCards++];
-	p = HR[p + *pCards++];
-	p = HR[p + *pCards++];
-	p = HR[p + *pCards++];
-	p = HR[p + *pCards++];
-	p = HR[p + *pCards++];
-	return HR[p + *pCards++];
+	long long p = HR[(long long)53 + *cards++];
+	p = HR[p + *cards++];
+	p = HR[p + *cards++];
+	p = HR[p + *cards++];
+	p = HR[p + *cards++];
+	p = HR[p + *cards++];
+	return HR[p + *cards++];
 }
