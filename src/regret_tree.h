@@ -3,7 +3,7 @@
 #include <vector>
 
 const int kNodes = 676;
-static const char* kTreeFileName = "regret_tree.dat";
+extern const char* kTreeFileName;
 
 class RegretTree {
 public:

@@ -5,6 +5,7 @@
 #include "helper_functions.h"
 
 RegretTree::RegretTree() : regret_tree(kNodes) {}
+const char* kTreeFileName = "regret_tree.dat";
 
 int RegretTree::RegretIndex(int c1, int c2, bool is_small_blind, bool is_fold) {
 	int c1_suit = FastMod(c1, 4);
