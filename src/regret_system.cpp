@@ -4,10 +4,6 @@
 
 #include "regret_system.h"
 
-// The handranks lookup table- loaded from HANDRANKS.DAT.
-//int HR[32487834];
-
-
 RegretSystem::RegretSystem() : HR(32487834) {
 	srand(time(NULL));
 
