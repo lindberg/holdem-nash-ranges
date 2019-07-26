@@ -7,7 +7,9 @@
 int main() {
 	RegretSystem system_;
 
-	system_.RunIterations(1);
+	system_.RunIterations(1000000);
+
+	std::cout << "done" << std::endl;
 
 	while (1) {}
 	return 0;

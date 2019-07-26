@@ -41,11 +41,15 @@ int RegretTree::RegretIndex(int c1, int c2, bool is_small_blind, bool is_fold) {
 	}
 
 	if (!is_small_blind) index += 169;
-	if (is_fold) index += 1;
 
 	// Every branch consists of 2 actions.
-	index *= 2;
+	--index *= 2;
 
+	if (is_fold) index += 1;
+
+	if (index >= 676) {
+		std::cout << "index fail: " << index << std::endl;
+	}
 	return index;
 }
 

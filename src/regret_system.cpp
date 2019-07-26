@@ -23,6 +23,13 @@ RegretSystem::RegretSystem() : HR(32487834) {
 }
 
 void RegretSystem::RunIterations(int iterations) {
+	int deck[52];
+	int cards[9];
+	int* sb_push, * sb_fold, * bb_call, * bb_fold;
+	int sb_hand_strength, bb_hand_strength;
+	bool draw, sb_won;
+	int random_card;
+
 	for (int ite = 0; ite < iterations; ite++) {
 		// Reset deck
 		for (int i = 1; i <= 52; i++) {
@@ -44,7 +51,8 @@ void RegretSystem::RunIterations(int iterations) {
 		sb_fold = &regret_tree_.regret_tree[regret_tree_.RegretIndex(sb_cards[0], sb_cards[1], true, true)];
 		bb_call = &regret_tree_.regret_tree[regret_tree_.RegretIndex(bb_cards[0], bb_cards[1], false, false)];
 		bb_fold = &regret_tree_.regret_tree[regret_tree_.RegretIndex(bb_cards[0], bb_cards[1], false, true)];
-
+		
+		
 		sb_hand_strength = LookupHand(sb_cards);
 		bb_hand_strength = LookupHand(bb_cards);
 
@@ -58,33 +66,41 @@ void RegretSystem::RunIterations(int iterations) {
 			draw = true;
 		}
 
+		//std::cout << "sb_push: " << std::endl;
+
 		// BB regret system
-		if (sb_push >= sb_fold) {
+		if (*sb_push >= *sb_fold) {
 			if (sb_won) {
-				bb_call -= 18;
+				*bb_call -= 18;
+				//std::cout << "bb-18" << std::endl;
 			}
 			else if (draw) {
-				bb_call += 2;
+				*bb_call += 2;
+				//std::cout << "bb+2" << std::endl;
 			}
 			else {
-				bb_call += 22;
+				*bb_call += 22;
+				//std::cout << "bb+22" << std::endl;
 			}
 		}
 
 		// SB regret system
-		if (bb_call >= bb_fold) {
+		if (*bb_call >= *bb_fold) {
 			if (sb_won) {
-				sb_push += 21;
+				*sb_push += 21;
+				//std::cout << "sb+21" << std::endl;
 			}
 			else if (draw) {
-				sb_push += 1;
+				*sb_push += 1;
+				//std::cout << "sb+1" << std::endl;
 			}
 			else {
-				sb_push -= 19;
+				*sb_push -= 19;
+				//std::cout << "sb+19" << std::endl;
 			}
 		}
 	}
-
+	//regret_tree_.regret_tree[0] = 666;
 	regret_tree_.SaveRegretTree("regret_tree.dat");
 }
 
@@ -97,4 +113,5 @@ int RegretSystem::LookupHand(int* pCards)
 	p = HR[p + *pCards++];
 	p = HR[p + *pCards++];
 	return HR[p + *pCards++];
+	return 1;
 }
