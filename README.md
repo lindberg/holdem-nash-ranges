@@ -24,7 +24,8 @@ For this we needed:
 
 ### Regret tree
 ![regret tree](img/tree.png)
-**Figure 1: A very simplified version of the regret tree only considering the hand AA.**
+
+*Figure 1: A very simplified version of the regret tree only considering the hand AA.*
 
 In Figure 1 we can see how the regret tree is built in a simplified way. The actual regret tree looks the same but have 169 times as many regret nodes since there are 169 different starting hands in Texas Hold ‘em and the simplified tree only considers one of them. This means that the actual regret tree consists of 169 * 4 = 676 regret nodes.
 
