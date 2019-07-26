@@ -24,11 +24,8 @@ int RegretTree::RegretIndex(int c1, int c2, bool is_small_blind, bool is_fold) {
 
 	if (c1_suit == c2_suit) index += 78;
 
-	std::cout << "index: " << index << std::endl;
-
 	if (c1_val == c2_val) {
 		index = c1_val - 1;
-		std::cout << "index2: " << index << std::endl;
 	}
 	else {
 		index += 13;
@@ -42,17 +39,13 @@ int RegretTree::RegretIndex(int c1, int c2, bool is_small_blind, bool is_fold) {
 
 		// The last few steps to get to the right position.
 		index += c2_val - rows - 3;
-		std::cout << "index3: " << index << std::endl;
 	}
 
 	if (!is_small_blind) index += 169;
-	std::cout << "index4: " << index << std::endl;
 	if (is_fold) index += 1;
-	std::cout << "index5: " << index << std::endl;
 
 	// Every branch consists of 2 actions.
 	index *= 2;
-	std::cout << "index6: " << index << std::endl;
 
 	return index;
 }
