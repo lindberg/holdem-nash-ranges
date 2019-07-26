@@ -3,9 +3,9 @@
 const int kNodes = 676;
 
 class RegretTree {
-private:
-	int regret_tree[kNodes];
 public:
+	int regret_tree[kNodes];
+
 	RegretTree();
 
 	// Returns the index of regret_tree where the node we are searching for is.

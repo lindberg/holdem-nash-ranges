@@ -1,17 +1,14 @@
 #include <iostream>
-#include "regret_tree.h"
+#include <cstdlib>
+#include <ctime>
+
+#include "regret_system.h"
 
 int main() {
-	RegretTree regret_tree_;
+	RegretSystem system_;
 
-	if (!regret_tree_.OpenRegretTree("regret_tree.dat")) {
-		regret_tree_.SaveRegretTree("regret_tree.dat");
-	}
+	system_.RunIterations(1);
 
-	int c1 = 13;
-	int c2 = 33;
-
-	std::cout << regret_tree_.RegretIndex(c1, c2, false, true) << std::endl;
-
+	while (1) {}
 	return 0;
 }
