@@ -5,19 +5,19 @@
 #include "regret_system.h"
 
 // The handranks lookup table- loaded from HANDRANKS.DAT.
-int HR[32487834];
+//int HR[32487834];
 
 
-RegretSystem::RegretSystem() {
+RegretSystem::RegretSystem() : HR(32487834) {
 	srand(time(NULL));
 
 	// Load the HandRanks.DAT file and map it into the HR array
 	printf("Loading HandRanks.DAT file...");
-	memset(HR, 0, sizeof(HR));
+	//memset(HR, 0, sizeof(HR));
 	FILE* fin = fopen("HandRanks.dat", "rb");
 	if (!fin)
 		exit(EXIT_FAILURE);
-	size_t bytesread = fread(HR, sizeof(HR), 1, fin);	// get the HandRank Array
+	size_t bytesread = fread(HR.data(), HR.size()*sizeof(int), 1, fin);	// get the HandRank Array
 	fclose(fin);
 	printf("complete.\n\n");
 
@@ -90,11 +90,11 @@ void RegretSystem::RunIterations(int iterations) {
 
 int RegretSystem::LookupHand(int* pCards)
 {
-	int p = HR[53 + *pCards++];
-	p = HR[p + *pCards++];
-	p = HR[p + *pCards++];
-	p = HR[p + *pCards++];
-	p = HR[p + *pCards++];
-	p = HR[p + *pCards++];
-	return HR[p + *pCards++];
+	int p = HR.at(53 + *pCards++);
+	p = HR.at(p + *pCards++);
+	p = HR.at(p + *pCards++);
+	p = HR.at(p + *pCards++);
+	p = HR.at(p + *pCards++);
+	p = HR.at(p + *pCards++);
+	return HR.at(p + *pCards++);
 }

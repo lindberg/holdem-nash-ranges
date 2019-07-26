@@ -1,10 +1,14 @@
 #pragma once
 
+#include <vector>
+
 #include "regret_tree.h"
 
 class RegretSystem {
 private:
 	RegretTree regret_tree_;
+
+	std::vector<int> HR;
 
 	int deck[52];
 	int cards[9];

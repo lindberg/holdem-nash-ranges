@@ -4,9 +4,7 @@
 #include "regret_tree.h"
 #include "helper_functions.h"
 
-RegretTree::RegretTree() {
-	memset(regret_tree, 0, sizeof(regret_tree));
-}
+RegretTree::RegretTree() : regret_tree(kNodes) {}
 
 int RegretTree::RegretIndex(int c1, int c2, bool is_small_blind, bool is_fold) {
 	int c1_suit = FastMod(c1, 4);
@@ -56,7 +54,7 @@ bool RegretTree::OpenRegretTree(const char* file_name) {
 		return false;
 	}
 
-	fread(regret_tree, sizeof(regret_tree), 1, fin);
+	fread(regret_tree.data(), regret_tree.size()*sizeof(int), 1, fin);
 
 	fclose(fin);
 

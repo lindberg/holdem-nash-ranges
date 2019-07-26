@@ -1,10 +1,12 @@
 #pragma once
 
+#include <vector>
+
 const int kNodes = 676;
 
 class RegretTree {
 public:
-	int regret_tree[kNodes];
+	std::vector<int> regret_tree;
 
 	RegretTree();
 
