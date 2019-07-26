@@ -72,6 +72,25 @@ void RegretTree::SaveRegretTree(const char* file_name) {
 	}
 
 	o.close();
+
+	std::cout << "Should SB shove? Higher values = more value" << std::endl;
+	std::cout << "22: " << regret_tree[0] << std::endl;
+	std::cout << "33: " << regret_tree[1] << std::endl;
+	std::cout << "44: " << regret_tree[2] << std::endl;
+	std::cout << "55: " << regret_tree[3] << std::endl;
+	std::cout << "66: " << regret_tree[4] << std::endl;
+	std::cout << "77: " << regret_tree[5] << std::endl;
+	std::cout << "88: " << regret_tree[6] << std::endl;
+	std::cout << "99: " << regret_tree[7] << std::endl;
+	std::cout << "TT: " << regret_tree[8] << std::endl;
+	std::cout << "JJ: " << regret_tree[9] << std::endl;
+	std::cout << "QQ: " << regret_tree[10] << std::endl;
+	std::cout << "KK: " << regret_tree[11] << std::endl;
+	std::cout << "AA: " << regret_tree[12] << std::endl;
+
+	for (int i = 13; i < 338; i++) {
+		std::cout << i << " : " << regret_tree[i] << std::endl;
+	}
 }
 
 int* RegretTree::GetNodePointer(int * cards, bool is_small_blind) {

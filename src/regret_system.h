@@ -17,5 +17,5 @@ public:
 	int LookupHand(int* cards);
 
 	void RunIterations(int iterations);
-	int * DealCards();
+	void DealCards(int * cards);
 };
