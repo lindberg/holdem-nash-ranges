@@ -78,3 +78,7 @@ void RegretTree::SaveRegretTree(const char* file_name) {
 
 	o.close();
 }
+
+int* RegretTree::GetNodePointer(int card1, int card2, bool is_small_blind, bool is_fold) {
+	return &regret_tree[RegretIndex(card1, card2, is_small_blind, is_fold)];
+}

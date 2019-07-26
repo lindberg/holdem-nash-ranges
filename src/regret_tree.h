@@ -18,4 +18,5 @@ public:
 
 	bool OpenRegretTree(const char* file_name);
 	void SaveRegretTree(const char* file_name);
+	int * GetNodePointer(int card1, int card2, bool is_small_blind, bool is_fold);
 };
