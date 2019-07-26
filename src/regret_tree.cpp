@@ -7,7 +7,7 @@
 RegretTree::RegretTree() : regret_tree(kNodes) {}
 const char* kTreeFileName = "regret_tree.dat";
 
-int RegretTree::RegretIndex(int * cards, bool is_small_blind, bool is_fold) {
+int RegretTree::RegretIndex(int * cards, bool is_small_blind) {
 	int index = 0;
 	int cards_suit[2], cards_val[2];
 
@@ -26,7 +26,7 @@ int RegretTree::RegretIndex(int * cards, bool is_small_blind, bool is_fold) {
 	if (cards_suit[0] == cards_suit[1]) index += 78;
 
 	if (cards_val[0] == cards_val[1]) {
-		index = cards_val[0] - 1;
+		index = cards_val[0] - 2;
 	}
 	else {
 		index += 13;
@@ -37,14 +37,10 @@ int RegretTree::RegretIndex(int * cards, bool is_small_blind, bool is_fold) {
 
 		// The last few steps to get to the right position.
 		index += cards_val[1] - rows - 3;
+
 	}
 
 	if (!is_small_blind) index += 169;
-
-	// Every branch consists of 2 actions.
-	--index *= 2;
-
-	if (is_fold) index += 1;
 
 	return index;
 }
@@ -78,6 +74,6 @@ void RegretTree::SaveRegretTree(const char* file_name) {
 	o.close();
 }
 
-int* RegretTree::GetNodePointer(int * cards, bool is_small_blind, bool is_fold) {
-	return &regret_tree[RegretIndex(cards, is_small_blind, is_fold)];
+int* RegretTree::GetNodePointer(int * cards, bool is_small_blind) {
+	return &regret_tree[RegretIndex(cards, is_small_blind)];
 }

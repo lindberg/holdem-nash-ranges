@@ -2,7 +2,7 @@
 
 #include <vector>
 
-const int kNodes = 676;
+const int kNodes = 338;
 extern const char* kTreeFileName;
 
 class RegretTree {
@@ -14,9 +14,9 @@ public:
 	// Returns the index of regret_tree where the node we are searching for is.
 	// The cards are represented by integers 1-52. For more information,
 	// see README.md.
-	int RegretIndex(int * cards, bool is_small_blind, bool is_fold);
+	int RegretIndex(int * cards, bool is_small_blind);
 
 	bool OpenRegretTree(const char* file_name);
 	void SaveRegretTree(const char* file_name);
-	int * GetNodePointer(int * cards, bool is_small_blind, bool is_fold);
+	int * GetNodePointer(int * cards, bool is_small_blind);
 };
