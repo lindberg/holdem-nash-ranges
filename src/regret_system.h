@@ -17,5 +17,5 @@ public:
 	int LookupHand(int* cards);
 
 	void RunIterations(int iterations);
-	std::vector<int> DealCards(int n);
+	int * DealCards();
 };

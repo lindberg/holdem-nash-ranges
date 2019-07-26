@@ -4,6 +4,9 @@
 
 #include "regret_system.h"
 
+#define PLAYERS 2
+#define CARDS PLAYERS*2+5
+
 RegretSystem::RegretSystem() : HR(32487834) {
 	srand(time(NULL));
 
@@ -23,7 +26,7 @@ RegretSystem::RegretSystem() : HR(32487834) {
 }
 
 void RegretSystem::RunIterations(int iterations) {
-	std::vector<int> cards(9);
+	int * cards;
 
 	int* sb_push, * bb_call;
 	int sb_hand_strength, bb_hand_strength;
@@ -32,7 +35,7 @@ void RegretSystem::RunIterations(int iterations) {
 	for (int ite = 0; ite < iterations; ite++) {
 		draw = false, sb_won = false;
 
-		cards = DealCards(9);
+		cards = DealCards();
 
 		int sb_cards[7] = { cards[0], cards[1], cards[4], cards[5], cards[6], cards[7], cards[8] };
 		int bb_cards[7] = { cards[2], cards[3], cards[4], cards[5], cards[6], cards[7], cards[8] };
@@ -75,9 +78,9 @@ int RegretSystem::LookupHand(int* cards)
 	return HR[p + *cards++];
 }
 
-std::vector<int> RegretSystem::DealCards(int n) {
+int * RegretSystem::DealCards() {
 	int deck[52];
-	std::vector<int> cards(n);
+	int cards [CARDS];
 	int random_card;
 
 	// Reset deck
@@ -87,7 +90,7 @@ std::vector<int> RegretSystem::DealCards(int n) {
 
 	// Deal random cards
 	int i;
-	for (i = 0; i < n-1; i++) {
+	for (i = 0; i < CARDS-1; i++) {
 		random_card = rand() % (52 - i);
 		cards[i] = deck[random_card];
 		deck[random_card] = deck[52 - 1 - i];
