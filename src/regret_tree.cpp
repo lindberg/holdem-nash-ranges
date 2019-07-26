@@ -7,29 +7,32 @@
 RegretTree::RegretTree() : regret_tree(kNodes) {}
 const char* kTreeFileName = "regret_tree.dat";
 
-int RegretTree::RegretIndex(int c1, int c2, bool is_small_blind, bool is_fold) {
-	int c1_suit = FastMod(c1, 4);
-	int c2_suit = FastMod(c2, 4);
-	int c1_val = c1 / 4.01 + 2;
-	int c2_val = c2 / 4.01 + 2;
+int RegretTree::RegretIndex(int * cards, bool is_small_blind, bool is_fold) {
+	int cards_suit[2], cards_val[2];
+
+	cards_suit[0] = FastMod(cards[0], 4);
+	cards_suit[1] = FastMod(cards[1], 4);
+	cards_val[0] = cards[0] / 4.01 + 2;
+	cards_val[1] = cards[1] / 4.01 + 2;
+
 	int index = 0;
 
-	// Make c1 the smallest card.
-	if (c1 > c2) {
-		int temp = c2;
-		c2 = c1;
-		c1 = temp;
+	// Make cards[0] the smallest card.
+	if (cards[0] > cards[1]) {
+		int temp = cards[1];
+		cards[1] = cards[0];
+		cards[0] = temp;
 	}
 
-	if (c1_suit == c2_suit) index += 78;
+	if (cards_suit[0] == cards_suit[1]) index += 78;
 
-	if (c1_val == c2_val) {
-		index = c1_val - 1;
+	if (cards_val[0] == cards_val[1]) {
+		index = cards_val[0] - 1;
 	}
 	else {
 		index += 13;
 
-		int rows = c1_val - 2;
+		int rows = cards_val[0] - 2;
 
 		// Perform arithmetic sum to get to the right row or column
 		// (depending on if we are looking at suited or non-suited
@@ -37,7 +40,7 @@ int RegretTree::RegretIndex(int c1, int c2, bool is_small_blind, bool is_fold) {
 		index += rows * (25 - rows) / 2;
 
 		// The last few steps to get to the right position.
-		index += c2_val - rows - 3;
+		index += cards_val[1] - rows - 3;
 	}
 
 	if (!is_small_blind) index += 169;
@@ -79,6 +82,6 @@ void RegretTree::SaveRegretTree(const char* file_name) {
 	o.close();
 }
 
-int* RegretTree::GetNodePointer(int card1, int card2, bool is_small_blind, bool is_fold) {
-	return &regret_tree[RegretIndex(card1, card2, is_small_blind, is_fold)];
+int* RegretTree::GetNodePointer(int * cards, bool is_small_blind, bool is_fold) {
+	return &regret_tree[RegretIndex(cards, is_small_blind, is_fold)];
 }

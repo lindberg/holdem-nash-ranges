@@ -47,10 +47,10 @@ void RegretSystem::RunIterations(int iterations) {
 		int sb_cards[7] = { cards[0], cards[1], cards[4], cards[5], cards[6], cards[7], cards[8] };
 		int bb_cards[7] = { cards[2], cards[3], cards[4], cards[5], cards[6], cards[7], cards[8] };
 
-		sb_push = regret_tree_.GetNodePointer(sb_cards[0], sb_cards[1], true, false);
-		sb_fold = regret_tree_.GetNodePointer(sb_cards[0], sb_cards[1], true, true);
-		bb_call = regret_tree_.GetNodePointer(bb_cards[0], bb_cards[1], false, false);
-		bb_fold = regret_tree_.GetNodePointer(bb_cards[0], bb_cards[1], false, true);
+		sb_push = regret_tree_.GetNodePointer(sb_cards, true, false);
+		sb_fold = regret_tree_.GetNodePointer(sb_cards, true, true);
+		bb_call = regret_tree_.GetNodePointer(bb_cards, false, false);
+		bb_fold = regret_tree_.GetNodePointer(bb_cards, false, true);
 		
 		sb_hand_strength = LookupHand(sb_cards);
 		bb_hand_strength = LookupHand(bb_cards);
