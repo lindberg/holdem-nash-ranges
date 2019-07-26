@@ -47,9 +47,6 @@ int RegretTree::RegretIndex(int c1, int c2, bool is_small_blind, bool is_fold) {
 
 	if (is_fold) index += 1;
 
-	if (index >= 676) {
-		std::cout << "index fail: " << index << std::endl;
-	}
 	return index;
 }
 

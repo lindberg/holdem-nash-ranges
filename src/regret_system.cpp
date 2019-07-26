@@ -66,21 +66,16 @@ void RegretSystem::RunIterations(int iterations) {
 			draw = true;
 		}
 
-		//std::cout << "sb_push: " << std::endl;
-
 		// BB regret system
 		if (*sb_push >= *sb_fold) {
 			if (sb_won) {
 				*bb_call -= 18;
-				//std::cout << "bb-18" << std::endl;
 			}
 			else if (draw) {
 				*bb_call += 2;
-				//std::cout << "bb+2" << std::endl;
 			}
 			else {
 				*bb_call += 22;
-				//std::cout << "bb+22" << std::endl;
 			}
 		}
 
@@ -88,19 +83,16 @@ void RegretSystem::RunIterations(int iterations) {
 		if (*bb_call >= *bb_fold) {
 			if (sb_won) {
 				*sb_push += 21;
-				//std::cout << "sb+21" << std::endl;
 			}
 			else if (draw) {
 				*sb_push += 1;
-				//std::cout << "sb+1" << std::endl;
 			}
 			else {
 				*sb_push -= 19;
-				//std::cout << "sb+19" << std::endl;
 			}
 		}
 	}
-	//regret_tree_.regret_tree[0] = 666;
+
 	regret_tree_.SaveRegretTree("regret_tree.dat");
 }
 
@@ -113,5 +105,4 @@ int RegretSystem::LookupHand(int* pCards)
 	p = HR[p + *pCards++];
 	p = HR[p + *pCards++];
 	return HR[p + *pCards++];
-	return 1;
 }
