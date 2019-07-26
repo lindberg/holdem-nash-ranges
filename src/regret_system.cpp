@@ -46,37 +46,21 @@ void RegretSystem::RunIterations(int iterations) {
 		draw = false;
 		sb_won = false;
 
-		if (sb_hand_strength > bb_hand_strength) {
-			sb_won = true;
-		}
-		else if (sb_hand_strength == bb_hand_strength) {
-			draw = true;
-		}
+		if (sb_hand_strength > bb_hand_strength) sb_won = true;
+		else if (sb_hand_strength == bb_hand_strength) draw = true;
 
 		// BB regret system
 		if (*sb_push >= *sb_fold) {
-			if (sb_won) {
-				*bb_call -= 18;
-			}
-			else if (draw) {
-				*bb_call += 2;
-			}
-			else {
-				*bb_call += 22;
-			}
+			if (sb_won) *bb_call -= 18;
+			else if (draw) *bb_call += 2;
+			else *bb_call += 22;
 		}
 
 		// SB regret system
 		if (*bb_call >= *bb_fold) {
-			if (sb_won) {
-				*sb_push += 21;
-			}
-			else if (draw) {
-				*sb_push += 1;
-			}
-			else {
-				*sb_push -= 19;
-			}
+			if (sb_won) *sb_push += 21;
+			else if (draw) *sb_push += 1;
+			else *sb_push -= 19;
 		}
 	}
 

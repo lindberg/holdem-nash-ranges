@@ -8,14 +8,13 @@ RegretTree::RegretTree() : regret_tree(kNodes) {}
 const char* kTreeFileName = "regret_tree.dat";
 
 int RegretTree::RegretIndex(int * cards, bool is_small_blind, bool is_fold) {
+	int index = 0;
 	int cards_suit[2], cards_val[2];
 
 	cards_suit[0] = FastMod(cards[0], 4);
 	cards_suit[1] = FastMod(cards[1], 4);
 	cards_val[0] = cards[0] / 4.01 + 2;
 	cards_val[1] = cards[1] / 4.01 + 2;
-
-	int index = 0;
 
 	// Make cards[0] the smallest card.
 	if (cards[0] > cards[1]) {
@@ -31,12 +30,9 @@ int RegretTree::RegretIndex(int * cards, bool is_small_blind, bool is_fold) {
 	}
 	else {
 		index += 13;
-
 		int rows = cards_val[0] - 2;
 
 		// Perform arithmetic sum to get to the right row or column
-		// (depending on if we are looking at suited or non-suited
-		// cards).
 		index += rows * (25 - rows) / 2;
 
 		// The last few steps to get to the right position.
