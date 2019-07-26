@@ -49,7 +49,7 @@ int RegretTree::RegretIndex(int c1, int c2, bool is_small_blind, bool is_fold) {
 }
 
 bool RegretTree::OpenRegretTree(const char* file_name) {
-	FILE* fin = fopen("regret_tree.dat", "rb");
+	FILE* fin = fopen(kTreeFileName, "rb");
 	if (!fin) {
 		return false;
 	}
