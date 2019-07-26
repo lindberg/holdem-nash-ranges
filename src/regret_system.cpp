@@ -97,7 +97,7 @@ void RegretSystem::RunIterations(int iterations) {
 
 int RegretSystem::LookupHand(int* pCards)
 {
-	int p = HR[53 + *pCards++];
+	long long p = HR[(long long)53 + *pCards++];
 	p = HR[p + *pCards++];
 	p = HR[p + *pCards++];
 	p = HR[p + *pCards++];
