@@ -40,25 +40,13 @@ void RegretSystem::RunIterations(int iterations) {
 		int sb_cards[7] = { cards[0], cards[1], cards[4], cards[5], cards[6], cards[7], cards[8] };
 		int bb_cards[7] = { cards[2], cards[3], cards[4], cards[5], cards[6], cards[7], cards[8] };
 
-
-		std::cout << "SB CARDS : " << cards[0] << "," << cards[1] << std::endl;
-		std::cout << "BB CARDS : " << cards[2] << "," << cards[3] << std::endl;
-		std::cout << "BOARD CARDS : " << cards[4] << "," << cards[5] << "," << cards[6] << "," << cards[7] << "," << cards[8] << std::endl;
-
 		int inde = regret_tree_.RegretIndex(sb_cards, true);
-		int indebb = regret_tree_.RegretIndex(bb_cards, true);
-		std::cout << "SB_REGRET : " << regret_tree_.regret_tree[inde] << std::endl;
-		std::cout << "INDEX SB : " << inde << std::endl;
-		std::cout << "INDEX BB : " << indebb << std::endl;
+		int indebb = regret_tree_.RegretIndex(bb_cards, false);
 
 
 		sb_push = regret_tree_.GetNodePointer(sb_cards, true);
 		bb_call = regret_tree_.GetNodePointer(bb_cards, false);
-		std::cout << "SB_REGRET2 : " << *sb_push << std::endl;
 		*sb_push += 2;
-		std::cout << "SB_REGRET3 : " << regret_tree_.regret_tree[inde] << std::endl;
-
-		//std::cout << "SB_PUSH : " << sb_push[50] << std::endl;
 		
 		sb_hand_strength = LookupHand(sb_cards);
 		bb_hand_strength = LookupHand(bb_cards);
@@ -71,7 +59,6 @@ void RegretSystem::RunIterations(int iterations) {
 			if (sb_won) *bb_call -= 18;
 			else if (draw) *bb_call += 2;
 			else *bb_call += 22;
-			std::cout << "BB_CALL : " << *bb_call << std::endl;
 		}
 
 		// SB regret system
@@ -79,9 +66,7 @@ void RegretSystem::RunIterations(int iterations) {
 			if (sb_won) *sb_push += 21;
 			else if (draw) *sb_push += 1;
 			else *sb_push -= 19;
-			std::cout << "SB_PUSH : " << *sb_push << std::endl;
 		}
-		std::cout << "SB_REGRET4 : " << regret_tree_.regret_tree[inde] << std::endl;
 	}
 
 	regret_tree_.SaveRegretTree("regret_tree.dat");
