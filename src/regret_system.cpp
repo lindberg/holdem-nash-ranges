@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <algorithm>
 
 #include "regret_system.h"
 
@@ -12,7 +13,7 @@ RegretSystem::RegretSystem() : HR(32487834) {
 
 	// Load the HandRanks.DAT file and map it into the HR array
 	printf("Loading HandRanks.DAT file...");
-	//memset(HR, 0, sizeof(HR));
+
 	FILE* fin = fopen("HandRanks.dat", "rb");
 	if (!fin)
 		exit(EXIT_FAILURE);
@@ -40,24 +41,20 @@ void RegretSystem::RunIterations(int iterations) {
 		int sb_cards[7] = { cards[0], cards[1], cards[4], cards[5], cards[6], cards[7], cards[8] };
 		int bb_cards[7] = { cards[2], cards[3], cards[4], cards[5], cards[6], cards[7], cards[8] };
 
-		int inde = regret_tree_.RegretIndex(sb_cards, true);
-		int indebb = regret_tree_.RegretIndex(bb_cards, false);
-
-
 		sb_push = regret_tree_.GetNodePointer(sb_cards, true);
 		bb_call = regret_tree_.GetNodePointer(bb_cards, false);
-		*sb_push += 2;
-		
+
 		sb_hand_strength = LookupHand(sb_cards);
 		bb_hand_strength = LookupHand(bb_cards);
 
 		if (sb_hand_strength > bb_hand_strength) sb_won = true;
 		else if (sb_hand_strength == bb_hand_strength) draw = true;
 
+
 		// BB regret system
 		if (*sb_push >= 0) {
-			if (sb_won) *bb_call -= 18;
-			else if (draw) *bb_call += 2;
+			if (sb_won)* bb_call -= 18;
+			else if (draw)* bb_call += 2;
 			else *bb_call += 22;
 		}
 
@@ -67,6 +64,7 @@ void RegretSystem::RunIterations(int iterations) {
 			else if (draw) *sb_push += 1;
 			else *sb_push -= 19;
 		}
+		else *sb_push += 3;
 	}
 
 	regret_tree_.SaveRegretTree("regret_tree.dat");
