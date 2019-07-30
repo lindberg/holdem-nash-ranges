@@ -8,6 +8,12 @@ class RegretSystem {
 private:
 	std::vector<int> HR;
 
+	short rand_key = 0;
+	unsigned int rand1[4];
+	unsigned int rand2[4];
+
+	//int RegretSystem::RandomNumber();
+
 	void DealCards(int* cards);
 	void Work(int c1, int c2, int c3, int c4, int stack_in_small_blinds);
 public:

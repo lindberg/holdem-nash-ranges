@@ -9,6 +9,11 @@
 RegretSystem::RegretSystem() : HR(32487834) {
 	srand(time(NULL));
 
+	srand_sse(time(NULL));
+
+	rand_sse(rand1);
+	rand_sse(rand2);
+
 	// Load the HandRanks.DAT file and map it into the HR array
 	printf("Loading HandRanks.DAT file...");
 
@@ -22,7 +27,7 @@ RegretSystem::RegretSystem() : HR(32487834) {
 	printf("complete.\n");
 }
 
-static unsigned int g_seed;
+static unsigned int g_seed = time(NULL);
 
 inline int FastRand() {
 	g_seed = (214013 * g_seed + 2531011);
@@ -124,7 +129,10 @@ void RegretSystem::DealCards(int * cards) {
 	// Deal random cards
 	int i;
 	for (i = 4; i < 9-1; i++) {
-		random_card = FastMod(FastRand(), (52 - i));
+		unsigned int rand[4];
+		rand_sse(rand);
+
+		random_card = FastMod(rand[i-4], (52 - i));
 		cards[i] = deck[random_card];
 		deck[random_card] = deck[52 - 1 - i];
 	}
