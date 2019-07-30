@@ -4,7 +4,6 @@
 #include "helper_functions.h"
 
 const int kNodes = 338;
-extern const char* kTreeFileName;
 
 class RegretTree {
 public:

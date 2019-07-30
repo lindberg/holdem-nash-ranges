@@ -4,7 +4,6 @@
 #include "regret_tree.h"
 
 RegretTree::RegretTree() : regret_tree(kNodes) {}
-const char* kTreeFileName = "regret_tree.dat";
 
 int RegretTree::RegretIndex(int * cards, bool is_small_blind) {
 	int index = 0;
@@ -31,7 +30,7 @@ int RegretTree::RegretIndex(int * cards, bool is_small_blind) {
 		index += 13;
 		int rows = cards_val[0] - 2;
 
-		// Perform arithmetic sum to get to the right row or column
+		// Perform arithmetic sum to get to the right row or column.
 		index += rows * (25 - rows) / 2;
 
 		// The last few steps to get to the right position.
@@ -45,14 +44,18 @@ int RegretTree::RegretIndex(int * cards, bool is_small_blind) {
 }
 
 bool RegretTree::OpenRegretTree(const char* file_name) {
-	FILE* fin = fopen(kTreeFileName, "rb");
+	std::cout << "Loading " << file_name << " file...";
+
+	FILE* fin = fopen(file_name, "rb");
+
 	if (!fin) {
+		printf("failed.\n\n");
 		return false;
 	}
-
+	
 	fread(regret_tree.data(), regret_tree.size()*sizeof(int), 1, fin);
 
-	fclose(fin);
+	printf("complete.\n\n");
 
 	return true;
 }
@@ -70,7 +73,7 @@ void RegretTree::SaveRegretTree(const char* file_name) {
 		o.write(bytes, 4);
 	}
 
-	o.close();
+	std::cout << file_name << " saved!\n\n";
 }
 
 int* RegretTree::GetNodePointer(int* cards, bool is_small_blind) {
