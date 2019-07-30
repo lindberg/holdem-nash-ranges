@@ -46,12 +46,18 @@ int RegretTree::RegretIndex(int * cards, bool is_small_blind) {
 bool RegretTree::OpenRegretTree(const char* file_name) {
 	std::cout << "Loading " << file_name << " file...";
 
-	FILE* fin = fopen(file_name, "rb");
+	FILE* fin;
 
-	if (!fin) {
-		printf("failed.\n\n");
-		return false;
+	std::ifstream f(file_name);
+	if (f.good()) {
+		fin = fopen(file_name, "rb");
+
+		if (!fin) {
+			printf("fail.\n\n");
+			exit(EXIT_FAILURE);
+		}
 	}
+	else return false;
 	
 	fread(regret_tree.data(), regret_tree.size()*sizeof(int), 1, fin);
 
