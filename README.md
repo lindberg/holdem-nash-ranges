@@ -93,7 +93,7 @@ A way to accurately modify regret based on the result of an action is required. 
 
 *Figure 3: Shows call ranges of a well known chart vs. call ranges the regret-based system generated*
 
-The charts are similar, but not the same. When tested against each other using PokerStove, the following result is aquired:
+The charts are similar, but not identical. When tested against each other using PokerStove, the following result is aquired:
 
 ![calculations](img/calculations.png)
 
