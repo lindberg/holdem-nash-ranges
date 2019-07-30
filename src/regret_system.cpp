@@ -24,7 +24,7 @@ RegretSystem::RegretSystem() : HR(32487834) {
 
 static unsigned int g_seed;
 
-inline int fastrand() {
+inline int FastRand() {
 	g_seed = (214013 * g_seed + 2531011);
 	return (g_seed >> 16) & 0x7FFF;
 }
@@ -124,10 +124,10 @@ void RegretSystem::DealCards(int * cards) {
 	// Deal random cards
 	int i;
 	for (i = 4; i < 9-1; i++) {
-		random_card = fastrand() % (52 - i);
+		random_card = FastMod(FastRand(), (52 - i));
 		cards[i] = deck[random_card];
 		deck[random_card] = deck[52 - 1 - i];
 	}
 
-	cards[i] = deck[fastrand() % (52 - 1 - i)];
+	cards[i] = deck[FastMod(FastRand(), (52 - 1 - i))];
 }
