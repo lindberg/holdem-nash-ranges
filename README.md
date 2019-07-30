@@ -36,8 +36,6 @@ Note 2: Fold is not given any regret since the expected value of folding will al
 
 Note 3: The information put in the tree could be better visualized with a table, but a tree is used since that is what would be used for a more complex problem.
 
-A way to accurately modify regret based on the result of an action is required. Adding or subtracting one regret depending if the action was favorable or unfavorable is insufficient since the small blind and the big blind get different amounts of profit and loss depending on the outcome of push or call. Therefore, the profit or loss in small blinds determins how much the regret is modified. A profit results in an increased regret and a loss results in a decreased regret.
-
 ### Storage issues
 In this particular case with only 338 regret nodes, storage or memory issues is not a concern. However, in a more complicated system, this might be an issue. If only one byte was used as a regret node, a regret value would range from -128 to 127. One successful push from the small blind would increase the regret value by 21 since 19 small blinds were used for the push and 40 small blinds were won; the profit would therefore be 21 small blinds. Already, more than 16 % of the limit of positive regret would have been used. This could create problems with variance since simulating millions of hands could cap regret nodes before the system could come to a valid conclusion of what the right action is in the specific spot.
 
@@ -73,3 +71,25 @@ As previously mentioned, only 169 hand combinations are relevant to this problem
 * The six in 56o is the same suit as T9s.
 
 These three matchups will play slightly differenty against each other. An easy way to solve this is to pick completely random cards from a deck when hand evaluation and then convert them to one of the 169 hand combinations. This is what the program does.
+
+A way to accurately modify regret based on the result of an action is required. Adding or subtracting one regret depending if the action was favorable or unfavorable is insufficient since the small blind and the big blind get different amounts of profit and loss depending on the outcome of push or call. Therefore, the profit or loss in small blinds determins how much the regret is modified. A profit results in an increased regret and a loss results in a decreased regret.
+
+## Results
+![comparison push ranges](img/comparison_push.png)
+
+*Figure 3: Shows push ranges of a well known chart vs. push ranges the regret-based system generated*
+
+
+![comparison call ranges](img/comparison_call.png)
+
+*Figure 3: Shows call ranges of a well known chart vs. call ranges the regret-based system generated*
+
+The charts are similar, but not the same. When tested against each other using PokerStove, the following result is aquired:
+
+![calculations](img/calculations.png)
+
+*Figure 4: Calculations based on numbers from PokerStove.*
+
+Note: The hand range percentage from PokerStove is not accurate. This might have to do with that the amount of combinations for each offsuited hand and suited hand is eight versus four.
+
+According to the calculation presented in *Figure 4*, the strategy developed by the regret-based system wins versus the push/fold-chart by approximately 3,78 big blinds per 100 hands.
