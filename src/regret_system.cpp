@@ -27,13 +27,6 @@ RegretSystem::RegretSystem() : HR(32487834) {
 	printf("complete.\n");
 }
 
-static unsigned int g_seed = time(NULL);
-
-inline int FastRand() {
-	g_seed = (214013 * g_seed + 2531011);
-	return (g_seed >> 16) & 0x7FFF;
-}
-
 void RegretSystem::RunIterations(int iterations, int stack_in_small_blinds) {
 	const char* file_name = ("regret_tree" + std::to_string(stack_in_small_blinds) + ".dat").c_str();
 	if (!regret_tree_.OpenRegretTree(file_name)) {

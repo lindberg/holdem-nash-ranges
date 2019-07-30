@@ -16,3 +16,5 @@ __declspec(align(16)) static __m128i cur_seed;
 
 void srand_sse(unsigned int seed);
 void rand_sse(unsigned int* result);
+
+int FastRand();

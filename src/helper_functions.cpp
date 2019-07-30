@@ -1,3 +1,5 @@
+#include <ctime>
+
 #include "helper_functions.h"
 
 int FastMod(const uint32_t input, const int ceil) {
@@ -130,4 +132,11 @@ void rand_sse(unsigned int* result) {
 	_mm_storeu_si128((__m128i*) result, cur_seed);
 
 	return;
+}
+
+static unsigned int g_seed = time(NULL);
+
+int FastRand() {
+	g_seed = (214013 * g_seed + 2531011);
+	return (g_seed >> 16) & 0x7FFF;
 }
